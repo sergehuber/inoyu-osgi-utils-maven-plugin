@@ -41,8 +41,10 @@ import java.util.jar.JarEntry;
 import static org.fusesource.jansi.Ansi.ansi;
 
 /**
- * A Maven goal to find where a package is located within a project and all its transitive dependencies.
- * It provides a clear trail of how we got to each location, including information about which dependencies are optional.
+ * A Maven goal to find where a package is located within a project and all its
+ * transitive dependencies.
+ * It provides a clear trail of how we got to each location, including
+ * information about which dependencies are optional.
  */
 @Mojo(name = "locate-package", requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class LocatePackageMojo extends AbstractMojo {
@@ -68,7 +70,8 @@ public class LocatePackageMojo extends AbstractMojo {
         getLog().info("Package name: " + packageName);
         AnsiConsole.systemInstall();
         printCoolHeader();
-        getLog().info(ansi().fgBrightCyan().a("Searching for package location: ").fgBrightYellow().a(packageName).reset().toString());
+        getLog().info(ansi().fgBrightCyan().a("Searching for package location: ").fgBrightYellow().a(packageName)
+                .reset().toString());
 
         try {
             if (project == null) {
@@ -104,7 +107,8 @@ public class LocatePackageMojo extends AbstractMojo {
         }
     }
 
-    private boolean locatePackageInDependencyNode(DependencyNode node, List<String> dependencyTrail) throws IOException {
+    private boolean locatePackageInDependencyNode(DependencyNode node, List<String> dependencyTrail)
+            throws IOException {
         Artifact artifact = node.getArtifact();
         String artifactKey = artifact.getGroupId() + ":" + artifact.getArtifactId() + ":" + artifact.getVersion();
 
@@ -191,14 +195,14 @@ public class LocatePackageMojo extends AbstractMojo {
 
     private void printCoolHeader() {
         String[] header = {
-            "  _____                         _____           _                    _                     _             ",
-            " |_   _|                       |  __ \\         | |                  | |                   | |            ",
-            "   | |  _ __   ___  _   _ _   _| |__) |_ _  ___| | ____ _  __ _  ___| |     ___   ___ __ _| |_ ___  _ __ ",
-            "   | | | '_ \\ / _ \\| | | | | | |  ___/ _` |/ __| |/ / _` |/ _` |/ _ \\ |    / _ \\ / __/ _` | __/ _ \\| '__|",
-            "  _| |_| | | | (_) | |_| | |_| | |  | (_| | (__|   < (_| | (_| |  __/ |___| (_) | (_| (_| | || (_) | |   ",
-            " |_____|_| |_|\\___/ \\__, |\\__,_|_|   \\__,_|\\___|_|\\_\\__,_|\\__, |\\___|______\\___/ \\___\\__,_|\\__\\___/|_|   ",
-            "                     __/ |                                 __/ |                                         ",
-            "                    |___/                                 |___/                                          "
+                "  _____                         _____           _                    _                     _             ",
+                " |_   _|                       |  __ \\         | |                  | |                   | |            ",
+                "   | |  _ __   ___  _   _ _   _| |__) |_ _  ___| | ____ _  __ _  ___| |     ___   ___ __ _| |_ ___  _ __ ",
+                "   | | | '_ \\ / _ \\| | | | | | |  ___/ _` |/ __| |/ / _` |/ _` |/ _ \\ |    / _ \\ / __/ _` | __/ _ \\| '__|",
+                "  _| |_| | | | (_) | |_| | |_| | |  | (_| | (__|   < (_| | (_| |  __/ |___| (_) | (_| (_| | || (_) | |   ",
+                " |_____|_| |_|\\___/ \\__, |\\__,_|_|   \\__,_|\\___|_|\\_\\__,_|\\__, |\\___|______\\___/ \\___\\__,_|\\__\\___/|_|   ",
+                "                     __/ |                                 __/ |                                         ",
+                "                    |___/                                 |___/                                          "
         };
 
         for (String line : header) {
@@ -209,14 +213,14 @@ public class LocatePackageMojo extends AbstractMojo {
 
     private void printPackageNotFound() {
         String[] notFoundArt = {
-            "  _____           _                    _   _       _     ______                     _ ",
-            " |  __ \\         | |                  | \\ | |     | |   |  ____|                   | |",
-            " | |__) |_ _  ___| | ____ _  __ _  ___|  \\| | ___ | |_  | |__ ___  _   _ _ __   __| |",
-            " |  ___/ _` |/ __| |/ / _` |/ _` |/ _ \\ . ` |/ _ \\| __| |  __/ _ \\| | | | '_ \\ / _` |",
-            " | |  | (_| | (__|   < (_| | (_| |  __/ |\\  | (_) | |_  | | | (_) | |_| | | | | (_| |",
-            " |_|   \\__,_|\\___|_|\\_\\__,_|\\__, |\\___|_| \\_|\\___/ \\__| |_|  \\___/ \\__,_|_| |_|\\__,_|",
-            "                             __/ |                                                    ",
-            "                            |___/                                                     "
+                "  _____           _                    _   _       _     ______                     _ ",
+                " |  __ \\         | |                  | \\ | |     | |   |  ____|                   | |",
+                " | |__) |_ _  ___| | ____ _  __ _  ___|  \\| | ___ | |_  | |__ ___  _   _ _ __   __| |",
+                " |  ___/ _` |/ __| |/ / _` |/ _` |/ _ \\ . ` |/ _ \\| __| |  __/ _ \\| | | | '_ \\ / _` |",
+                " | |  | (_| | (__|   < (_| | (_| |  __/ |\\  | (_) | |_  | | | (_) | |_| | | | | (_| |",
+                " |_|   \\__,_|\\___|_|\\_\\__,_|\\__, |\\___|_| \\_|\\___/ \\__| |_|  \\___/ \\__,_|_| |_|\\__,_|",
+                "                             __/ |                                                    ",
+                "                            |___/                                                     "
         };
 
         getLog().info("");

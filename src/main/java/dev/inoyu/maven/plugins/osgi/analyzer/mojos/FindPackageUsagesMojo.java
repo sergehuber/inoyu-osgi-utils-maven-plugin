@@ -49,9 +49,12 @@ import org.eclipse.aether.resolution.ArtifactRequest;
 import org.eclipse.aether.resolution.ArtifactResult;
 
 /**
- * A Maven goal to find all usages of a package inside an OSGi project and its transitive dependencies using BND.
- * This helps understand why BND generates an Import-Package statement and from which specific piece of code it originates.
- * It provides a clear trail of how we got to each dependency, including information about which dependencies are optional.
+ * A Maven goal to find all usages of a package inside an OSGi project and its
+ * transitive dependencies using BND.
+ * This helps understand why BND generates an Import-Package statement and from
+ * which specific piece of code it originates.
+ * It provides a clear trail of how we got to each dependency, including
+ * information about which dependencies are optional.
  */
 @Mojo(name = "find-package-usages", requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class FindPackageUsagesMojo extends AbstractMojo {
@@ -78,7 +81,8 @@ public class FindPackageUsagesMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         AnsiConsole.systemInstall();
         printCoolHeader();
-        getLog().info(ansi().fgBrightCyan().a("Searching for usages of package: ").fgBrightYellow().a(packageName).reset().toString());
+        getLog().info(ansi().fgBrightCyan().a("Searching for usages of package: ").fgBrightYellow().a(packageName)
+                .reset().toString());
 
         try {
             File classesDir = new File(project.getBuild().getOutputDirectory());
@@ -120,13 +124,12 @@ public class FindPackageUsagesMojo extends AbstractMojo {
     private File resolveArtifactFile(Artifact artifact) throws Exception {
         // First, check the local repository
         File localFile = new File(repoSession.getLocalRepository().getBasedir(),
-            repoSession.getLocalRepositoryManager().getPathForLocalArtifact(new DefaultArtifact(
-                artifact.getGroupId(),
-                artifact.getArtifactId(),
-                artifact.getClassifier(),
-                getArtifactExtension(artifact),
-                artifact.getVersion()
-            )));
+                repoSession.getLocalRepositoryManager().getPathForLocalArtifact(new DefaultArtifact(
+                        artifact.getGroupId(),
+                        artifact.getArtifactId(),
+                        artifact.getClassifier(),
+                        getArtifactExtension(artifact),
+                        artifact.getVersion())));
 
         if (localFile.exists()) {
             return localFile;
@@ -134,12 +137,11 @@ public class FindPackageUsagesMojo extends AbstractMojo {
 
         // If not found locally, resolve from remote repositories
         DefaultArtifact aetherArtifact = new DefaultArtifact(
-            artifact.getGroupId(),
-            artifact.getArtifactId(),
-            artifact.getClassifier(),
-            getArtifactExtension(artifact),
-            artifact.getVersion()
-        );
+                artifact.getGroupId(),
+                artifact.getArtifactId(),
+                artifact.getClassifier(),
+                getArtifactExtension(artifact),
+                artifact.getVersion());
 
         ArtifactRequest request = new ArtifactRequest();
         request.setArtifact(aetherArtifact);
@@ -159,7 +161,9 @@ public class FindPackageUsagesMojo extends AbstractMojo {
                 String className = clazz.getClassName().getFQN();
                 for (Descriptors.PackageRef ref : clazz.getReferred()) {
                     if (ref.getFQN().startsWith(packageName)) {
-                        getLog().info(ansi().fgBrightGreen().a("📦 Usage found in ").fgBrightYellow().a(context).fgBrightGreen().a(": ").fgBrightCyan().a(className).fgBrightGreen().a(" uses ").fgBrightMagenta().a(ref.getFQN()).reset().toString());
+                        getLog().info(ansi().fgBrightGreen().a("📦 Usage found in ").fgBrightYellow().a(context)
+                                .fgBrightGreen().a(": ").fgBrightCyan().a(className).fgBrightGreen().a(" uses ")
+                                .fgBrightMagenta().a(ref.getFQN()).reset().toString());
                         printDependencyTrail(dependencyTrail);
                         getLog().info(""); // Empty line for readability
                     }
@@ -188,22 +192,22 @@ public class FindPackageUsagesMojo extends AbstractMojo {
 
     private void printCoolHeader() {
         String[] header = {
-            " _____                         _____           _                      ",
-            "|_   _|                       |  __ \\         | |                     ",
-            "  | |  _ __   ___  _   _ _   _| |__) |_ _  ___| | ____ _  __ _  ___   ",
-            "  | | | '_ \\ / _ \\| | | | | | |  ___/ _` |/ __| |/ / _` |/ _` |/ _ \\  ",
-            " _| |_| | | | (_) | |_| | |_| | |  | (_| | (__|   < (_| | (_| |  __/  ",
-            "|_____|_| |_|\\___/ \\__, |\\__,_|_|   \\__,_|\\___|_|\\_\\__,_|\\__, |\\___|  ",
-            "                     __/ |                                __/ |        ",
-            "                    |___/                                |___/         ",
-            "  _    _                       ______ _           _                   ",
-            " | |  | |                     |  ____(_)         | |                  ",
-            " | |  | |___  __ _  __ _  ___ | |__   _ _ __   __| | ___ _ __         ",
-            " | |  | / __|/ _` |/ _` |/ _ \\|  __| | | '_ \\ / _` |/ _ \\ '__|        ",
-            " | |__| \\__ \\ (_| | (_| |  __/| |    | | | | | (_| |  __/ |           ",
-            "  \\____/|___/\\__,_|\\__, |\\___||_|    |_|_| |_|\\__,_|\\___|_|           ",
-            "                    __/ |                                             ",
-            "                   |___/                                              "
+                " _____                         _____           _                      ",
+                "|_   _|                       |  __ \\         | |                     ",
+                "  | |  _ __   ___  _   _ _   _| |__) |_ _  ___| | ____ _  __ _  ___   ",
+                "  | | | '_ \\ / _ \\| | | | | | |  ___/ _` |/ __| |/ / _` |/ _` |/ _ \\  ",
+                " _| |_| | | | (_) | |_| | |_| | |  | (_| | (__|   < (_| | (_| |  __/  ",
+                "|_____|_| |_|\\___/ \\__, |\\__,_|_|   \\__,_|\\___|_|\\_\\__,_|\\__, |\\___|  ",
+                "                     __/ |                                __/ |        ",
+                "                    |___/                                |___/         ",
+                "  _    _                       ______ _           _                   ",
+                " | |  | |                     |  ____(_)         | |                  ",
+                " | |  | |___  __ _  __ _  ___ | |__   _ _ __   __| | ___ _ __         ",
+                " | |  | / __|/ _` |/ _` |/ _ \\|  __| | | '_ \\ / _` |/ _ \\ '__|        ",
+                " | |__| \\__ \\ (_| | (_| |  __/| |    | | | | | (_| |  __/ |           ",
+                "  \\____/|___/\\__,_|\\__, |\\___||_|    |_|_| |_|\\__,_|\\___|_|           ",
+                "                    __/ |                                             ",
+                "                   |___/                                              "
         };
 
         for (String line : header) {
