@@ -47,7 +47,7 @@
 
   <scm>
     <connection>scm:git:git://github.com/sergehuber/osgi-analyzer-maven-plugin.git</connection>
-    <developerConnection>scm:git:ssh://github.com/sergehuber/osgi-analyzer-maven-plugin.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/sergehuber/osgi-analyzer-maven-plugin.git</developerConnection>
     <url>https://github.com/sergehuber/osgi-analyzer-maven-plugin/tree/main</url>
   </scm>
 
