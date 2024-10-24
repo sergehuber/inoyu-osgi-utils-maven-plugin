@@ -139,6 +139,12 @@
       <artifactId>aether-api</artifactId>
       <version>1.1.0</version> <!-- Use the appropriate version -->
     </dependency>
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-verifier</artifactId>
+      <version>1.8.0</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <distributionManagement>
@@ -192,7 +198,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-invoker-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>3.2.2</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -265,6 +271,34 @@
               <goal>sign</goal>
             </goals>
           </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-invoker-plugin</artifactId>
+        <version>3.2.2</version>
+        <configuration>
+            <debug>true</debug>
+            <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+            <pomIncludes>
+                <pomInclude>projects/*/pom.xml</pomInclude>
+            </pomIncludes>
+            <postBuildHookScript>verify</postBuildHookScript>
+            <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+            <goals>
+                <goal>clean</goal>
+                <goal>test-compile</goal>
+            </goals>
+        </configuration>
+        <executions>
+            <execution>
+                <id>integration-test</id>
+                <goals>
+                    <goal>install</goal>
+                    <goal>integration-test</goal>
+                    <goal>verify</goal>
+                </goals>
+            </execution>
         </executions>
       </plugin>
     </plugins>
