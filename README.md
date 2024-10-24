@@ -1,6 +1,6 @@
 # OSGi Bundle Analyzer Maven Plugin
 
-The OSGi Tools Maven Plugin is a collection of utilities designed to help developers work with OSGi bundles in Maven projects. This plugin provides several goals to analyze and manage OSGi-related aspects of your project.
+The OSGi Bundle Analyzer Maven Plugin is a collection of utilities designed to help developers work with OSGi bundles in Maven projects. This plugin provides several goals to analyze and manage OSGi-related aspects of your project.
 
 ## Features
 
