@@ -1,3 +1,18 @@
+/*
+ * Copyright 2024 Serge Huber
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package dev.inoyu.maven.plugins.osgi.analyzer.mojos;
 
 import org.apache.maven.plugin.AbstractMojo;
@@ -65,7 +80,8 @@ public class ViewManifestMojo extends AbstractMojo {
                 String manifest = readManifest(jarPath);
                 Map<String, String> headers = parseManifest(manifest);
 
-                getLog().info(ansi().fgBrightYellow().a("Analyzing manifest of: ").fgBrightCyan().a(jarPath).reset().toString());
+                getLog().info(ansi().fgBrightYellow().a("Analyzing manifest of: ").fgBrightCyan().a(jarPath).reset()
+                        .toString());
                 getLog().info(ansi().fgBrightMagenta().a("=".repeat(80)).reset().toString());
 
                 headers.entrySet().stream()
@@ -73,10 +89,12 @@ public class ViewManifestMojo extends AbstractMojo {
                         .forEach(entry -> {
                             String key = entry.getKey();
                             String value = entry.getValue();
-                            if (Arrays.asList("Bundle-ClassPath", "Embedded-Artifacts", "Export-Package", "Import-Package", "Import-Service").contains(key)) {
+                            if (Arrays.asList("Bundle-ClassPath", "Embedded-Artifacts", "Export-Package",
+                                    "Import-Package", "Import-Service").contains(key)) {
                                 getLog().info(formatHeader(key, value));
                             } else {
-                                getLog().info(ansi().fgBrightGreen().a(key + ": ").fgBrightDefault().a(value).reset().toString());
+                                getLog().info(ansi().fgBrightGreen().a(key + ": ").fgBrightDefault().a(value).reset()
+                                        .toString());
                             }
                             getLog().info(ansi().fgBrightBlue().a("─".repeat(78)).reset().toString());
                         });
@@ -185,7 +203,9 @@ public class ViewManifestMojo extends AbstractMojo {
             for (Map.Entry<String, String> param : parsedClause.getValue()) {
                 String[] parts = param.getValue().split(":");
                 String separator = parts[1].equals("directive") ? ":=" : "=";
-                formatted.append(ansi().fgBrightCyan().a("    " + param.getKey() + separator + parts[0]).reset().toString() + "\n");
+                formatted.append(
+                        ansi().fgBrightCyan().a("    " + param.getKey() + separator + parts[0]).reset().toString()
+                                + "\n");
             }
         }
 
@@ -194,14 +214,14 @@ public class ViewManifestMojo extends AbstractMojo {
 
     private void printCoolHeader() {
         String[] header = {
-            "  _____                         __  __             _  __          _  __      ___                       ",
-            " |_   _|                       |  \\/  |           (_)/ _|        | | \\ \\    / (_)                      ",
-            "   | |  _ __   ___  _   _ _   _| \\  / | __ _ _ __  _| |_ ___  ___| |_ \\ \\  / / _  _____      _____ _ __ ",
-            "   | | | '_ \\ / _ \\| | | | | | | |\\/| |/ _` | '_ \\| |  _/ _ \\/ __| __| \\ \\/ / | |/ _ \\ \\ /\\ / / _ \\ '__|",
-            "  _| |_| | | | (_) | |_| | |_| | |  | | (_| | | | | | ||  __/\\__ \\ |_   \\  /  | |  __/\\ V  V /  __/ |   ",
-            " |_____|_| |_|\\___/ \\__, |\\__,_|_|  |_|\\__,_|_| |_|_|_| \\___||___/\\__|   \\/   |_|\\___| \\_/\\_/ \\___|_|   ",
-            "                     __/ |                                                                                 ",
-            "                    |___/                                                                                  "
+                "  _____                         __  __             _  __          _  __      ___                       ",
+                " |_   _|                       |  \\/  |           (_)/ _|        | | \\ \\    / (_)                      ",
+                "   | |  _ __   ___  _   _ _   _| \\  / | __ _ _ __  _| |_ ___  ___| |_ \\ \\  / / _  _____      _____ _ __ ",
+                "   | | | '_ \\ / _ \\| | | | | | | |\\/| |/ _` | '_ \\| |  _/ _ \\/ __| __| \\ \\/ / | |/ _ \\ \\ /\\ / / _ \\ '__|",
+                "  _| |_| | | | (_) | |_| | |_| | |  | | (_| | | | | | ||  __/\\__ \\ |_   \\  /  | |  __/\\ V  V /  __/ |   ",
+                " |_____|_| |_|\\___/ \\__, |\\__,_|_|  |_|\\__,_|_| |_|_|_| \\___||___/\\__|   \\/   |_|\\___| \\_/\\_/ \\___|_|   ",
+                "                     __/ |                                                                                 ",
+                "                    |___/                                                                                  "
         };
 
         for (String line : header) {
