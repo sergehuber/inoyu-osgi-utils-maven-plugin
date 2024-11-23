@@ -1,4 +1,4 @@
-package dev.inoyu.maven.plugins.osgi.analyzer;
+package dev.inoyu.maven.plugins.osgi.analyzer.mojos;
 
 import org.apache.maven.it.Verifier;
 import org.apache.maven.it.util.ResourceExtractor;
