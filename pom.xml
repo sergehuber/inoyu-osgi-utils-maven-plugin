@@ -20,7 +20,7 @@
 
   <groupId>dev.inoyu</groupId>
   <artifactId>osgi-analyzer-maven-plugin</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <packaging>maven-plugin</packaging>
 
   <name>OSGi Bundle Analyzer Maven Plugin</name>
@@ -47,7 +47,7 @@
     <connection>scm:git:git://github.com/sergehuber/osgi-analyzer-maven-plugin.git</connection>
     <developerConnection>scm:git:https://github.com/sergehuber/osgi-analyzer-maven-plugin.git</developerConnection>
     <url>https://github.com/sergehuber/osgi-analyzer-maven-plugin/tree/main</url>
-    <tag>HEAD</tag>
+    <tag>osgi-analyzer-maven-plugin-1.1</tag>
   </scm>
 
   <prerequisites>
