@@ -37,7 +37,7 @@ This plugin can be used directly from the command line. Some goals require a Mav
 This goal must be run within a Maven project context:
 
 ```shell
-mvn dev.inoyu:osgi-analyzer-maven-plugin:1.0-SNAPSHOT:locate-package -Dpackage=com.example.package1
+mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:locate-package -Dpackage=com.example.package1
 ```
 
 
