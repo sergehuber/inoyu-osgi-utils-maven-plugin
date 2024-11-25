@@ -15,6 +15,10 @@
  */
 package dev.inoyu.maven.plugins.osgi.analyzer.mojos;
 
+import org.apache.felix.utils.manifest.Attribute;
+import org.apache.felix.utils.manifest.Clause;
+import org.apache.felix.utils.manifest.Directive;
+import org.apache.felix.utils.manifest.Parser;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -26,7 +30,10 @@ import org.fusesource.jansi.AnsiConsole;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.jar.Attributes;
 import java.util.jar.JarFile;
+import java.util.jar.Manifest;
+import java.util.regex.Pattern;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
@@ -77,27 +84,16 @@ public class ViewManifestMojo extends AbstractMojo {
 
         for (String jarPath : jarPaths) {
             try {
-                String manifest = readManifest(jarPath);
-                Map<String, String> headers = parseManifest(manifest);
+                Manifest manifest = readManifest(jarPath);
 
                 getLog().info(ansi().fgBrightYellow().a("Analyzing manifest of: ").fgBrightCyan().a(jarPath).reset()
                         .toString());
                 getLog().info(ansi().fgBrightMagenta().a("=".repeat(80)).reset().toString());
 
-                headers.entrySet().stream()
-                        .sorted(Map.Entry.comparingByKey())
-                        .forEach(entry -> {
-                            String key = entry.getKey();
-                            String value = entry.getValue();
-                            if (Arrays.asList("Bundle-ClassPath", "Embedded-Artifacts", "Export-Package",
-                                    "Import-Package", "Import-Service").contains(key)) {
-                                getLog().info(formatHeader(key, value));
-                            } else {
-                                getLog().info(ansi().fgBrightGreen().a(key + ": ").fgBrightDefault().a(value).reset()
-                                        .toString());
-                            }
-                            getLog().info(ansi().fgBrightBlue().a("─".repeat(78)).reset().toString());
-                        });
+                processAttributes(manifest.getMainAttributes());
+                for (Map.Entry<String, Attributes> namedAttributes : manifest.getEntries().entrySet()) {
+                    processAttributes(namedAttributes.getValue());
+                }
 
                 getLog().info(ansi().fgBrightMagenta().a("=".repeat(80)).reset().toString());
                 getLog().info("");
@@ -109,67 +105,28 @@ public class ViewManifestMojo extends AbstractMojo {
         AnsiConsole.systemUninstall();
     }
 
-    private String readManifest(String jarPath) throws IOException {
+    private Manifest readManifest(String jarPath) throws IOException {
         try (JarFile jarFile = new JarFile(jarPath)) {
-            return new String(jarFile.getInputStream(jarFile.getEntry("META-INF/MANIFEST.MF")).readAllBytes());
+            return jarFile.getManifest();
         }
     }
 
-    private Map<String, String> parseManifest(String manifestContent) {
-        Map<String, String> headers = new LinkedHashMap<>();
-        String currentKey = null;
-        StringBuilder currentValue = new StringBuilder();
+    private void processAttributes(Attributes attributes) {
 
-        for (String line : manifestContent.split("\n")) {
-            if (line.startsWith(" ")) {
-                currentValue.append(line.substring(1));
+        for (Object attributeKey : attributes.keySet()) {
+            String attributeName = attributeKey.toString();
+            String attributeValue = attributes.getValue(attributeName);
+            if (Arrays.asList("Bundle-ClassPath", "Embedded-Artifacts", "Export-Package",
+                    "Import-Package", "Import-Service", "Require-Capability", "Provide-Capability",
+                    "Fragment-Host", "DynamicImport-Package", "Bundle-NativeCode", "Service-Component",
+                    "Bundle-RequiredExecutionEnvironment", "Component-Properties").contains(attributeName)) {
+                getLog().info(formatHeader(attributeName, attributeValue));
             } else {
-                if (currentKey != null) {
-                    headers.put(currentKey, currentValue.toString());
-                }
-                if (line.contains(":")) {
-                    String[] parts = line.split(":", 2);
-                    currentKey = parts[0];
-                    currentValue = new StringBuilder(parts[1].trim());
-                }
+                getLog().info(ansi().fgBrightGreen().a(attributeName + ": ").fgBrightDefault().a(attributeValue).reset()
+                        .toString());
             }
+            getLog().info(ansi().fgBrightBlue().a("─".repeat(78)).reset().toString());
         }
-
-        if (currentKey != null) {
-            headers.put(currentKey, currentValue.toString());
-        }
-
-        return headers;
-    }
-
-    private List<String> parseHeader(String headerValue) {
-        List<String> clauses = new ArrayList<>();
-        StringBuilder currentClause = new StringBuilder();
-        boolean inQuotes = false;
-        boolean escape = false;
-
-        for (char c : headerValue.toCharArray()) {
-            if (escape) {
-                currentClause.append(c);
-                escape = false;
-            } else if (c == '\\') {
-                escape = true;
-            } else if (c == '"' && !escape) {
-                inQuotes = !inQuotes;
-                currentClause.append(c);
-            } else if (c == ',' && !inQuotes) {
-                clauses.add(currentClause.toString().trim());
-                currentClause = new StringBuilder();
-            } else {
-                currentClause.append(c);
-            }
-        }
-
-        if (currentClause.length() > 0) {
-            clauses.add(currentClause.toString().trim());
-        }
-
-        return clauses;
     }
 
     private Map.Entry<String, List<Map.Entry<String, String>>> parseClause(String clause) {
@@ -194,22 +151,42 @@ public class ViewManifestMojo extends AbstractMojo {
     }
 
     private String formatHeader(String key, String value) {
-        List<String> clauses = parseHeader(value);
         StringBuilder formatted = new StringBuilder(ansi().fgBrightYellow().a(key + ":").reset().toString() + "\n");
 
-        for (String clause : clauses) {
-            Map.Entry<String, List<Map.Entry<String, String>>> parsedClause = parseClause(clause);
-            formatted.append(ansi().fgBrightGreen().a("  " + parsedClause.getKey()).reset().toString() + "\n");
-            for (Map.Entry<String, String> param : parsedClause.getValue()) {
-                String[] parts = param.getValue().split(":");
-                String separator = parts[1].equals("directive") ? ":=" : "=";
-                formatted.append(
-                        ansi().fgBrightCyan().a("    " + param.getKey() + separator + parts[0]).reset().toString()
-                                + "\n");
+        // Parse the Import-Package header
+        Clause[] clauses = Parser.parseHeader(value);
+
+        for (int i = 0; i < clauses.length; i++) {
+            Clause clause = clauses[i];
+            formatted.append(ansi().fgBrightGreen().a("  " + clause.getName()).reset().toString());
+            for (Directive directive : clause.getDirectives()) {
+                String quotedValue = applyQuotingIfNeeded(directive.getValue());
+                formatted.append(ansi().fgBrightCyan().a(";" + directive.getName() + ":=" + quotedValue).reset().toString());
+            }
+            for (Attribute attribute : clause.getAttributes()) {
+                String quotedValue = applyQuotingIfNeeded(attribute.getValue());
+                formatted.append(ansi().fgBrightBlue().a(";" + attribute.getName() + "=" + quotedValue).reset().toString());
+            }
+            // Add a comma if this is not the last clause
+            if (i < clauses.length - 1) {
+                formatted.append(",\n");
             }
         }
 
-        return formatted.toString().trim();
+        return formatted.toString();
+    }
+
+    private String applyQuotingIfNeeded(String value) {
+        // Regex pattern for detecting special characters or whitespace
+        Pattern specialCharacters = Pattern.compile("[,;=]|\\s");
+
+        // Quote the value if it contains special characters, whitespace, or is empty
+        if (value.isEmpty() || specialCharacters.matcher(value).find()) {
+            return "\"" + value.replace("\"", "\\\"") + "\""; // Escape inner quotes
+        }
+
+        // Return the unquoted value if quoting is unnecessary
+        return value;
     }
 
     private void printCoolHeader() {

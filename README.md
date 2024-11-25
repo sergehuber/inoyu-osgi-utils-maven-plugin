@@ -48,7 +48,7 @@ This goal scans your project's dependencies and reports where the specified pack
 ```
 📦 Package found in Project classes
 Dependency trail:
-├─ dev.inoyu:osgi-tools:1.0-SNAPSHOT
+├─ dev.inoyu:osgi-tools:1.1
 com/example/package1/Class1.class
 com/example/package1/Class2.class
 ```
@@ -59,7 +59,7 @@ com/example/package1/Class2.class
 This goal must also be run within a Maven project context:
 
 ```shell
-mvn dev.inoyu:osgi-analyzer-maven-plugin:1.0-SNAPSHOT:find-package-usages -Dpackage=com.example.package
+mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:find-package-usages -Dpackage=com.example.package
 ```
 
 
@@ -82,7 +82,7 @@ This goal can be used both within a Maven project context and independently:
 1. Within a Maven project:
 
    ```shell
-   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.0-SNAPSHOT:view-manifest
+   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:view-manifest
    ```
 
    This will display the manifest of the project's main artifact.
@@ -90,7 +90,7 @@ This goal can be used both within a Maven project context and independently:
 2. For arbitrary JAR files (can be used anywhere):
 
    ```shell
-   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.0-SNAPSHOT:view-manifest -Djars=path/to/your/jar1.jar,path/to/your/jar2.jar
+   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:view-manifest -Djars=path/to/your/jar1.jar,path/to/your/jar2.jar
    ```
 
 This goal displays the contents of the OSGi bundle manifest, including all headers and their values.
@@ -121,25 +121,25 @@ The plugin supports the following parameters:
 1. Locate a package in a Maven project:
 
    ```shell
-   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.0-SNAPSHOT:locate-package -Dpackage=org.osgi.framework
+   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:locate-package -Dpackage=org.osgi.framework
    ```
 
 2. Analyze package usage in a Maven project:
 
    ```shell
-   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.0-SNAPSHOT:find-package-usages -Dpackage=com.example.api
+   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:find-package-usages -Dpackage=com.example.api
    ```
 
 3. View manifest of the current Maven project:
 
    ```shell
-   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.0-SNAPSHOT:view-manifest
+   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:view-manifest
    ```
 
 4. View manifests of multiple JARs (can be used anywhere):
 
    ```shell
-   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.0-SNAPSHOT:view-manifest -Djars=/path/to/bundle1.jar,/path/to/bundle2.jar
+   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:view-manifest -Djars=/path/to/bundle1.jar,/path/to/bundle2.jar
    ```
 
 ## Notes

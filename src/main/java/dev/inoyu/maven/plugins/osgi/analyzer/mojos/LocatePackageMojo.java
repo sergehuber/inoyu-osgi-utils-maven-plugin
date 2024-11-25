@@ -15,6 +15,7 @@
  */
 package dev.inoyu.maven.plugins.osgi.analyzer.mojos;
 
+import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -29,6 +30,11 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
 
+import org.eclipse.aether.RepositorySystem;
+import org.eclipse.aether.RepositorySystemSession;
+import org.eclipse.aether.artifact.DefaultArtifact;
+import org.eclipse.aether.resolution.ArtifactRequest;
+import org.eclipse.aether.resolution.ArtifactResult;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
@@ -60,6 +66,12 @@ public class LocatePackageMojo extends AbstractMojo {
 
     @Parameter(defaultValue = "${session}", readonly = true, required = true)
     private MavenSession session;
+
+    @Component
+    private RepositorySystem repoSystem;
+
+    @Parameter(defaultValue = "${repositorySystemSession}", readonly = true)
+    private RepositorySystemSession repoSession;
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
@@ -108,22 +120,29 @@ public class LocatePackageMojo extends AbstractMojo {
     }
 
     private boolean locatePackageInDependencyNode(DependencyNode node, List<String> dependencyTrail)
-            throws IOException {
+            throws Exception {
         Artifact artifact = node.getArtifact();
+        getLog().debug("Locating package in dependency node: " + artifact.getGroupId() + ":" + artifact.getArtifactId() + " file=" + artifact.getFile() + " downloadUrl=" + artifact.getDownloadUrl());
         String artifactKey = artifact.getGroupId() + ":" + artifact.getArtifactId() + ":" + artifact.getVersion();
 
         List<String> currentTrail = new ArrayList<>(dependencyTrail);
         currentTrail.add(artifactKey + (artifact.isOptional() ? " (optional)" : ""));
 
         File file = artifact.getFile();
+        if (file == null) {
+            file = resolveArtifactFile(artifact);
+        }
+
+        boolean result = false;
+
         if (file != null && file.isFile()) {
-            locatePackageInJar(file, "Dependency: " + artifactKey, currentTrail);
+            result |= locatePackageInJar(file, "Dependency: " + artifactKey, currentTrail);
         }
 
         for (DependencyNode child : node.getChildren()) {
-            locatePackageInDependencyNode(child, currentTrail);
+            result |= locatePackageInDependencyNode(child, currentTrail);
         }
-        return false;
+        return result;
     }
 
     private boolean locatePackageInDirectory(File directory, String context, List<String> dependencyTrail) {
@@ -147,6 +166,7 @@ public class LocatePackageMojo extends AbstractMojo {
             Enumeration<JarEntry> entries = jar.entries();
             while (entries.hasMoreElements()) {
                 JarEntry entry = entries.nextElement();
+                getLog().debug("Locating package in entry : " + entry.getName());
                 if (entry.getName().startsWith(packagePath + "/") && !entry.isDirectory()) {
                     if (!found) {
                         printLocationFound(context);
@@ -232,4 +252,40 @@ public class LocatePackageMojo extends AbstractMojo {
                 .fgBrightYellow().a(" was not found in the project or its dependencies.").reset().toString());
         getLog().info("");
     }
+
+    private File resolveArtifactFile(Artifact artifact) throws Exception {
+        // First, check the local repository
+        File localFile = new File(repoSession.getLocalRepository().getBasedir(),
+                repoSession.getLocalRepositoryManager().getPathForLocalArtifact(new DefaultArtifact(
+                        artifact.getGroupId(),
+                        artifact.getArtifactId(),
+                        artifact.getClassifier(),
+                        getArtifactExtension(artifact),
+                        artifact.getVersion())));
+
+        if (localFile.exists()) {
+            return localFile;
+        }
+
+        // If not found locally, resolve from remote repositories
+        DefaultArtifact aetherArtifact = new DefaultArtifact(
+                artifact.getGroupId(),
+                artifact.getArtifactId(),
+                artifact.getClassifier(),
+                getArtifactExtension(artifact),
+                artifact.getVersion());
+
+        ArtifactRequest request = new ArtifactRequest();
+        request.setArtifact(aetherArtifact);
+        request.setRepositories(project.getRemoteProjectRepositories());
+
+        ArtifactResult result = repoSystem.resolveArtifact(repoSession, request);
+        return result.getArtifact().getFile();
+    }
+
+    private String getArtifactExtension(Artifact artifact) {
+        ArtifactHandler handler = artifact.getArtifactHandler();
+        return handler.getExtension();
+    }
+
 }

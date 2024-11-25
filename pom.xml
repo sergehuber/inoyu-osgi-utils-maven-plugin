@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Copyright 2024 Serge Huber
-  
+
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
@@ -139,6 +139,11 @@
       <version>1.1.0</version> <!-- Use the appropriate version -->
     </dependency>
     <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.apache.felix.utils</artifactId>
+      <version>1.11.8</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.maven.shared</groupId>
       <artifactId>maven-verifier</artifactId>
       <version>1.8.0</version>
@@ -197,7 +202,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-invoker-plugin</artifactId>
-          <version>3.2.2</version>
+          <version>3.8.1</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -273,7 +278,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-invoker-plugin</artifactId>
-        <version>3.2.2</version>
         <configuration>
             <debug>true</debug>
             <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
@@ -281,10 +285,8 @@
                 <pomInclude>projects/*/pom.xml</pomInclude>
             </pomIncludes>
             <postBuildHookScript>verify</postBuildHookScript>
-            <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
             <goals>
-                <goal>clean</goal>
-                <goal>test-compile</goal>
+                <goal>install</goal>
             </goals>
         </configuration>
         <executions>
@@ -297,6 +299,34 @@
                 </goals>
             </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
+        <configuration>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.22.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <includes>
+            <include>**/*IT.java</include>
+          </includes>
+        </configuration>
       </plugin>
     </plugins>
   </build>
