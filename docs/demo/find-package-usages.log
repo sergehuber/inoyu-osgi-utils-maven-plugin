@@ -1,7 +1,7 @@
 [INFO] Scanning for projects...
 [INFO] Cache configuration is not available at configured path /Users/loom/java/technologies/apache-git/unomi/persistence-opensearch/core/.mvn/maven-build-cache-config.xml, cache is enabled with defaults
 [INFO] Using XX hash algorithm for cache
-[INFO] 
+[INFO]
 [INFO] ---------< org.apache.unomi:unomi-persistence-opensearch-core >---------
 [INFO] Building Apache Unomi :: Persistence :: OpenSearch :: Core 2.6.0-SNAPSHOT
 [INFO]   from pom.xml
@@ -10,63 +10,82 @@ Downloading from apache-snapshots: https://repository.apache.org/content/groups/
 Downloading from smx.m2: https://svn.apache.org/repos/asf/servicemix/m2-repo/org/apache/unomi/unomi-api/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-api/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from ops4j.sonatype.snapshots.deploy: https://oss.sonatype.org/content/repositories/ops4j-snapshots/org/apache/unomi/unomi-api/2.6.0-SNAPSHOT/maven-metadata.xml
-Progress (1): 778 BProgress (2): 778 B | 778 B                           Downloaded from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-api/2.6.0-SNAPSHOT/maven-metadata.xml (778 B at 700 B/s)
+Progress (1): 778 B
+Progress (2): 778 B | 778 B
+
+Downloaded from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-api/2.6.0-SNAPSHOT/maven-metadata.xml (778 B at 700 B/s)
 Downloaded from apache-snapshots: https://repository.apache.org/content/groups/snapshots-group/org/apache/unomi/unomi-api/2.6.0-SNAPSHOT/maven-metadata.xml (778 B at 697 B/s)
 Downloading from apache-snapshots: https://repository.apache.org/content/groups/snapshots-group/org/apache/unomi/unomi-root/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-root/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from ops4j.sonatype.snapshots.deploy: https://oss.sonatype.org/content/repositories/ops4j-snapshots/org/apache/unomi/unomi-root/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from smx.m2: https://svn.apache.org/repos/asf/servicemix/m2-repo/org/apache/unomi/unomi-root/2.6.0-SNAPSHOT/maven-metadata.xml
-Progress (1): 605 BProgress (2): 605 B | 605 B                           Downloaded from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-root/2.6.0-SNAPSHOT/maven-metadata.xml (605 B at 1.6 kB/s)
+Progress (1): 605 B
+Progress (2): 605 B | 605 B
+
+Downloaded from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-root/2.6.0-SNAPSHOT/maven-metadata.xml (605 B at 1.6 kB/s)
 Downloaded from apache-snapshots: https://repository.apache.org/content/groups/snapshots-group/org/apache/unomi/unomi-root/2.6.0-SNAPSHOT/maven-metadata.xml (605 B at 1.4 kB/s)
 Downloading from smx.m2: https://svn.apache.org/repos/asf/servicemix/m2-repo/org/apache/unomi/unomi-common/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-common/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from apache-snapshots: https://repository.apache.org/content/groups/snapshots-group/org/apache/unomi/unomi-common/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from ops4j.sonatype.snapshots.deploy: https://oss.sonatype.org/content/repositories/ops4j-snapshots/org/apache/unomi/unomi-common/2.6.0-SNAPSHOT/maven-metadata.xml
-Progress (1): 781 B                   Progress (2): 781 B | 781 B                           Downloaded from apache-snapshots: https://repository.apache.org/content/groups/snapshots-group/org/apache/unomi/unomi-common/2.6.0-SNAPSHOT/maven-metadata.xml (781 B at 3.1 kB/s)
+Progress (1): 781 B
+
+Progress (2): 781 B | 781 B
+
+Downloaded from apache-snapshots: https://repository.apache.org/content/groups/snapshots-group/org/apache/unomi/unomi-common/2.6.0-SNAPSHOT/maven-metadata.xml (781 B at 3.1 kB/s)
 Downloaded from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-common/2.6.0-SNAPSHOT/maven-metadata.xml (781 B at 2.9 kB/s)
 Downloading from smx.m2: https://svn.apache.org/repos/asf/servicemix/m2-repo/org/apache/unomi/unomi-persistence-spi/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-persistence-spi/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from apache-snapshots: https://repository.apache.org/content/groups/snapshots-group/org/apache/unomi/unomi-persistence-spi/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from ops4j.sonatype.snapshots.deploy: https://oss.sonatype.org/content/repositories/ops4j-snapshots/org/apache/unomi/unomi-persistence-spi/2.6.0-SNAPSHOT/maven-metadata.xml
-Progress (1): 790 BProgress (2): 790 B | 790 B                           Downloaded from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-persistence-spi/2.6.0-SNAPSHOT/maven-metadata.xml (790 B at 1.7 kB/s)
+Progress (1): 790 B
+Progress (2): 790 B | 790 B
+
+Downloaded from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-persistence-spi/2.6.0-SNAPSHOT/maven-metadata.xml (790 B at 1.7 kB/s)
 Downloaded from apache-snapshots: https://repository.apache.org/content/groups/snapshots-group/org/apache/unomi/unomi-persistence-spi/2.6.0-SNAPSHOT/maven-metadata.xml (790 B at 1.7 kB/s)
 Downloading from ops4j.sonatype.snapshots.deploy: https://oss.sonatype.org/content/repositories/ops4j-snapshots/org/apache/unomi/unomi-metrics/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from apache-snapshots: https://repository.apache.org/content/groups/snapshots-group/org/apache/unomi/unomi-metrics/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from smx.m2: https://svn.apache.org/repos/asf/servicemix/m2-repo/org/apache/unomi/unomi-metrics/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-metrics/2.6.0-SNAPSHOT/maven-metadata.xml
-Progress (1): 782 BProgress (2): 782 B | 782 B                           Downloaded from apache-snapshots: https://repository.apache.org/content/groups/snapshots-group/org/apache/unomi/unomi-metrics/2.6.0-SNAPSHOT/maven-metadata.xml (782 B at 2.1 kB/s)
+Progress (1): 782 B
+Progress (2): 782 B | 782 B
+
+Downloaded from apache-snapshots: https://repository.apache.org/content/groups/snapshots-group/org/apache/unomi/unomi-metrics/2.6.0-SNAPSHOT/maven-metadata.xml (782 B at 2.1 kB/s)
 Downloaded from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-metrics/2.6.0-SNAPSHOT/maven-metadata.xml (782 B at 2.1 kB/s)
 Downloading from apache-snapshots: https://repository.apache.org/content/groups/snapshots-group/org/apache/unomi/unomi-scripting/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from ops4j.sonatype.snapshots.deploy: https://oss.sonatype.org/content/repositories/ops4j-snapshots/org/apache/unomi/unomi-scripting/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from smx.m2: https://svn.apache.org/repos/asf/servicemix/m2-repo/org/apache/unomi/unomi-scripting/2.6.0-SNAPSHOT/maven-metadata.xml
 Downloading from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-scripting/2.6.0-SNAPSHOT/maven-metadata.xml
-Progress (1): 784 BProgress (2): 784 B | 784 B                           Downloaded from apache-snapshots: https://repository.apache.org/content/groups/snapshots-group/org/apache/unomi/unomi-scripting/2.6.0-SNAPSHOT/maven-metadata.xml (784 B at 2.3 kB/s)
+Progress (1): 784 B
+Progress (2): 784 B | 784 B
+
+Downloaded from apache-snapshots: https://repository.apache.org/content/groups/snapshots-group/org/apache/unomi/unomi-scripting/2.6.0-SNAPSHOT/maven-metadata.xml (784 B at 2.3 kB/s)
 Downloaded from apache.snapshots: https://repository.apache.org/snapshots/org/apache/unomi/unomi-scripting/2.6.0-SNAPSHOT/maven-metadata.xml (784 B at 2.3 kB/s)
-[INFO] 
-[INFO] --- osgi-analyzer:1.1:find-package-usages (default-cli) @ unomi-persistence-opensearch-core ---
-[INFO]  _____                         _____           _                      
-[INFO] |_   _|                       |  __ \         | |                     
-[INFO]   | |  _ __   ___  _   _ _   _| |__) |_ _  ___| | ____ _  __ _  ___   
-[INFO]   | | | '_ \ / _ \| | | | | | |  ___/ _` |/ __| |/ / _` |/ _` |/ _ \  
-[INFO]  _| |_| | | | (_) | |_| | |_| | |  | (_| | (__|   < (_| | (_| |  __/  
-[INFO] |_____|_| |_|\___/ \__, |\__,_|_|   \__,_|\___|_|\_\__,_|\__, |\___|  
-[INFO]                      __/ |                                __/ |        
-[INFO]                     |___/                                |___/         
-[INFO]   _    _                       ______ _           _                   
-[INFO]  | |  | |                     |  ____(_)         | |                  
-[INFO]  | |  | |___  __ _  __ _  ___ | |__   _ _ __   __| | ___ _ __         
-[INFO]  | |  | / __|/ _` |/ _` |/ _ \|  __| | | '_ \ / _` |/ _ \ '__|        
-[INFO]  | |__| \__ \ (_| | (_| |  __/| |    | | | | | (_| |  __/ |           
-[INFO]   \____/|___/\__,_|\__, |\___||_|    |_|_| |_|\__,_|\___|_|           
-[INFO]                     __/ |                                             
-[INFO]                    |___/                                              
-[INFO] 
+[INFO]
+[INFO] --- osgi-utils:1.2:find-package-usages (default-cli) @ unomi-persistence-opensearch-core ---
+[INFO]  _____                         _____           _
+[INFO] |_   _|                       |  __ \         | |
+[INFO]   | |  _ __   ___  _   _ _   _| |__) |_ _  ___| | ____ _  __ _  ___
+[INFO]   | | | '_ \ / _ \| | | | | | |  ___/ _` |/ __| |/ / _` |/ _` |/ _ \
+[INFO]  _| |_| | | | (_) | |_| | |_| | |  | (_| | (__|   < (_| | (_| |  __/
+[INFO] |_____|_| |_|\___/ \__, |\__,_|_|   \__,_|\___|_|\_\__,_|\__, |\___|
+[INFO]                      __/ |                                __/ |
+[INFO]                     |___/                                |___/
+[INFO]   _    _                       ______ _           _
+[INFO]  | |  | |                     |  ____(_)         | |
+[INFO]  | |  | |___  __ _  __ _  ___ | |__   _ _ __   __| | ___ _ __
+[INFO]  | |  | / __|/ _` |/ _` |/ _ \|  __| | | '_ \ / _` |/ _ \ '__|
+[INFO]  | |__| \__ \ (_| | (_| |  __/| |    | | | | | (_| |  __/ |
+[INFO]   \____/|___/\__,_|\__, |\___||_|    |_|_| |_|\__,_|\___|_|
+[INFO]                     __/ |
+[INFO]                    |___/
+[INFO]
 [INFO] Searching for usages of package: android.os
 [INFO] 📦 Usage found in Dependency: com.google.guava:guava:33.3.1-jre: com.google.common.io.TempFileCreator uses android.os
 [INFO] Dependency trail:
 [INFO] ├─ org.apache.unomi:unomi-persistence-opensearch-core:2.6.0-SNAPSHOT
 [INFO]   ├─ com.google.guava:guava:33.3.1-jre
-[INFO] 
+[INFO]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------

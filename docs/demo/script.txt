@@ -6,7 +6,7 @@ cat deployment-error.txt
 
 # Not only is that unreadable, but a dependency on "android.os" for a bundle embedding the OpenSearch client ? What kind of mess is that ?
 
-# Enter the OSGi Bundle Analyzer Maven Plugin ! It can help in situations like this. First, in order to understand the problem let's try to look at the MANIFEST.MF inside the JAR. It looks like this:
+# Enter the Inoyu OSGi Utilities Maven Plugin ! It can help in situations like this. First, in order to understand the problem let's try to look at the MANIFEST.MF inside the JAR. It looks like this:
 
 cat MANIFEST.MF
 
