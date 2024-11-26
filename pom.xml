@@ -20,7 +20,7 @@
 
   <groupId>dev.inoyu</groupId>
   <artifactId>osgi-utils-maven-plugin</artifactId>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2</version>
   <packaging>maven-plugin</packaging>
 
   <name>Inoyu OSGi Utilities Maven Plugin</name>
@@ -47,7 +47,7 @@
     <connection>scm:git:git://github.com/sergehuber/inoyu-osgi-utils-maven-plugin.git</connection>
     <developerConnection>scm:git:https://github.com/sergehuber/inoyu-osgi-utils-maven-plugin.git</developerConnection>
     <url>https://github.com/sergehuber/inoyu-osgi-utils-maven-plugin/tree/main</url>
-    <tag>HEAD</tag>
+    <tag>osgi-utils-maven-plugin-1.2</tag>
   </scm>
 
   <prerequisites>
