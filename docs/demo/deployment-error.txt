@@ -1,0 +1,22 @@
+org.apache.felix.resolver.reason.ReasonException: Unable to resolve root: missing requirement [root] osgi.identity; osgi.identity=df1ebb36-018b-4a49-8a3f-8a623ddc8b05; type=karaf.feature; version="[0,0.0.0]"; filter:="(&(osgi.identity=df1ebb36-018b-4a49-8a3f-8a623ddc8b05)(type=karaf.feature)(version>=0.0.0)(version<=0.0.0))" [caused by: Unable to resolve df1ebb36-018b-4a49-8a3f-8a623ddc8b05/0.0.0: missing requirement [df1ebb36-018b-4a49-8a3f-8a623ddc8b05/0.0.0] osgi.identity; osgi.identity=unomi-kar; type=karaf.feature; version="[2.6.0.SNAPSHOT,2.6.0.SNAPSHOT]" [caused by: Unable to resolve unomi-kar/2.6.0.SNAPSHOT: missing requirement [unomi-kar/2.6.0.SNAPSHOT] osgi.identity; osgi.identity=org.apache.unomi.persistence-opensearch-core; type=osgi.bundle; version="[2.6.0.SNAPSHOT,2.6.0.SNAPSHOT]"; resolution:=mandatory [caused by: Unable to resolve org.apache.unomi.persistence-opensearch-core/2.6.0.SNAPSHOT: missing requirement [org.apache.unomi.persistence-opensearch-core/2.6.0.SNAPSHOT] osgi.wiring.package; filter:="(osgi.wiring.package=android.os)"]]]
+	at org.apache.felix.resolver.Candidates$MissingRequirementError.toException(Candidates.java:1343)
+	at org.apache.felix.resolver.ResolverImpl.doResolve(ResolverImpl.java:392)
+	at org.apache.felix.resolver.ResolverImpl.resolve(ResolverImpl.java:378)
+	at org.apache.felix.resolver.ResolverImpl.resolve(ResolverImpl.java:332)
+	at org.apache.karaf.features.internal.region.SubsystemResolver.resolve(SubsystemResolver.java:257)
+	at org.apache.karaf.features.internal.service.Deployer.deploy(Deployer.java:401)
+	at org.apache.karaf.features.internal.service.FeaturesServiceImpl.doProvision(FeaturesServiceImpl.java:1063)
+	at org.apache.karaf.features.internal.service.FeaturesServiceImpl.lambda$doProvisionInThread$13(FeaturesServiceImpl.java:998)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+Caused by: org.apache.felix.resolver.reason.ReasonException: Unable to resolve df1ebb36-018b-4a49-8a3f-8a623ddc8b05/0.0.0: missing requirement [df1ebb36-018b-4a49-8a3f-8a623ddc8b05/0.0.0] osgi.identity; osgi.identity=unomi-kar; type=karaf.feature; version="[2.6.0.SNAPSHOT,2.6.0.SNAPSHOT]" [caused by: Unable to resolve unomi-kar/2.6.0.SNAPSHOT: missing requirement [unomi-kar/2.6.0.SNAPSHOT] osgi.identity; osgi.identity=org.apache.unomi.persistence-opensearch-core; type=osgi.bundle; version="[2.6.0.SNAPSHOT,2.6.0.SNAPSHOT]"; resolution:=mandatory [caused by: Unable to resolve org.apache.unomi.persistence-opensearch-core/2.6.0.SNAPSHOT: missing requirement [org.apache.unomi.persistence-opensearch-core/2.6.0.SNAPSHOT] osgi.wiring.package; filter:="(osgi.wiring.package=android.os)"]]
+	at org.apache.felix.resolver.Candidates$MissingRequirementError.toException(Candidates.java:1343)
+	... 12 more
+Caused by: org.apache.felix.resolver.reason.ReasonException: Unable to resolve unomi-kar/2.6.0.SNAPSHOT: missing requirement [unomi-kar/2.6.0.SNAPSHOT] osgi.identity; osgi.identity=org.apache.unomi.persistence-opensearch-core; type=osgi.bundle; version="[2.6.0.SNAPSHOT,2.6.0.SNAPSHOT]"; resolution:=mandatory [caused by: Unable to resolve org.apache.unomi.persistence-opensearch-core/2.6.0.SNAPSHOT: missing requirement [org.apache.unomi.persistence-opensearch-core/2.6.0.SNAPSHOT] osgi.wiring.package; filter:="(osgi.wiring.package=android.os)"]
+	at org.apache.felix.resolver.Candidates$MissingRequirementError.toException(Candidates.java:1343)
+	... 13 more
+Caused by: org.apache.felix.resolver.reason.ReasonException: Unable to resolve org.apache.unomi.persistence-opensearch-core/2.6.0.SNAPSHOT: missing requirement [org.apache.unomi.persistence-opensearch-core/2.6.0.SNAPSHOT] osgi.wiring.package; filter:="(osgi.wiring.package=android.os)"
+	at org.apache.felix.resolver.Candidates$MissingRequirementError.toException(Candidates.java:1343)
+	... 14 more

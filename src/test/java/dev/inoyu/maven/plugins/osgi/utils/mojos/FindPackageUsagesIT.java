@@ -13,26 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.inoyu.maven.plugins.osgi.analyzer.mojos;
+package dev.inoyu.maven.plugins.osgi.utils.mojos;
 
 import org.apache.maven.it.Verifier;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 
 import java.io.File;
 
-public class ViewManifestIT extends AbstractMojoTestCase {
+public class FindPackageUsagesIT extends AbstractMojoTestCase {
 
-    public void testViewManifest() throws Exception {
-        File testProjectDir = new File(getBasedir(), "target/it/projects/view-manifest-test");
+    public void testFindPackageUsages() throws Exception {
+        File testProjectDir = new File(getBasedir(), "target/it/projects/find-package-usages-test");
 
         Verifier verifier = new Verifier(testProjectDir.getAbsolutePath());
         verifier.setAutoclean(false);
 
-        verifier.executeGoal("dev.inoyu:osgi-analyzer-maven-plugin:view-manifest");
+        verifier.setSystemProperty("package", "org.osgi.framework");
+        verifier.executeGoal("dev.inoyu:osgi-utils-maven-plugin:find-package-usages");
 
         verifier.verifyErrorFreeLog();
-        verifier.verifyTextInLog("Bundle-SymbolicName:");
-        verifier.verifyTextInLog("Bundle-Version:");
+        verifier.verifyTextInLog("Usage found in Dependency: org.osgi:org.osgi.core");
 
         verifier.resetStreams();
     }

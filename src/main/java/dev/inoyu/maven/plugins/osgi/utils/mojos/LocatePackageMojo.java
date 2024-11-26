@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.inoyu.maven.plugins.osgi.analyzer.mojos;
+package dev.inoyu.maven.plugins.osgi.utils.mojos;
 
+import dev.inoyu.maven.plugins.osgi.utils.themes.ThemeManager;
 import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
@@ -35,7 +36,6 @@ import org.eclipse.aether.RepositorySystemSession;
 import org.eclipse.aether.artifact.DefaultArtifact;
 import org.eclipse.aether.resolution.ArtifactRequest;
 import org.eclipse.aether.resolution.ArtifactResult;
-import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.File;
@@ -44,7 +44,8 @@ import java.util.*;
 import java.util.jar.JarFile;
 import java.util.jar.JarEntry;
 
-import static org.fusesource.jansi.Ansi.ansi;
+import static dev.inoyu.maven.plugins.osgi.utils.themes.ThemeManager.Role.*;
+import static dev.inoyu.maven.plugins.osgi.utils.themes.ThemeManager.builder;
 
 /**
  * A Maven goal to find where a package is located within a project and all its
@@ -80,10 +81,8 @@ public class LocatePackageMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         getLog().info("Package name: " + packageName);
-        AnsiConsole.systemInstall();
         printCoolHeader();
-        getLog().info(ansi().fgBrightCyan().a("Searching for package location: ").fgBrightYellow().a(packageName)
-                .reset().toString());
+        getLog().info(builder().add(CONTEXT, "Searching for package location: ").add(DETAIL, packageName).build());
 
         try {
             if (project == null) {
@@ -173,7 +172,7 @@ public class LocatePackageMojo extends AbstractMojo {
                         printDependencyTrail(dependencyTrail);
                         found = true;
                     }
-                    getLog().info(ansi().fgBrightGreen().a("  " + entry.getName()).reset().toString());
+                    getLog().debug(builder().add(DEPENDENCY, "  " + entry.getName()).build());
                 }
             }
         }
@@ -182,16 +181,17 @@ public class LocatePackageMojo extends AbstractMojo {
 
     private void printDependencyTrail(List<String> dependencyTrail) {
         if (!dependencyTrail.isEmpty()) {
-            getLog().info(ansi().fgBrightMagenta().a("Dependency trail:").reset().toString());
+            getLog().info(builder().add(CONTEXT, "Dependency trail:").build());
             for (int i = 0; i < dependencyTrail.size(); i++) {
                 String dep = dependencyTrail.get(i);
-                Ansi ansi = ansi().fgBrightBlue().a("  ".repeat(i) + "├─ ");
+                ThemeManager.ColorBuilder builder = builder();
+                builder.add(DETAIL, "  ".repeat(i) + "├─ ");
                 if (dep.contains("(optional)")) {
-                    ansi.fgYellow().a(dep.replace(" (optional)", "")).fgBrightYellow().a(" (optional)");
+                    builder.add(DEPENDENCY, dep.replace(" (optional)", "")).add(ATTRIBUTE, " (optional)");
                 } else {
-                    ansi.a(dep);
+                    builder.add(DEPENDENCY, dep);
                 }
-                getLog().info(ansi.reset().toString());
+                getLog().info(builder.build());
             }
         }
         getLog().info(""); // Empty line for readability
@@ -201,7 +201,7 @@ public class LocatePackageMojo extends AbstractMojo {
         File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {
-                getLog().info(ansi().fgBrightGreen().a(indent + file.getName()).reset().toString());
+                getLog().info(builder().add(DEPENDENCY, indent + file.getName()).build());
                 if (file.isDirectory()) {
                     listPackageContents(file, indent + "  ");
                 }
@@ -210,7 +210,7 @@ public class LocatePackageMojo extends AbstractMojo {
     }
 
     private void printLocationFound(String context) {
-        getLog().info(ansi().fgBrightGreen().a("📦 Package found in ").fgBrightYellow().a(context).reset().toString());
+        getLog().info(builder().add(CONTEXT, "📦 Package found in ").add(DETAIL, context).build());
     }
 
     private void printCoolHeader() {
@@ -226,7 +226,7 @@ public class LocatePackageMojo extends AbstractMojo {
         };
 
         for (String line : header) {
-            getLog().info(ansi().fgBrightCyan().a(line).reset().toString());
+            getLog().info(builder().add(HEADER, line).build());
         }
         getLog().info("");
     }
@@ -245,11 +245,11 @@ public class LocatePackageMojo extends AbstractMojo {
 
         getLog().info("");
         for (String line : notFoundArt) {
-            getLog().info(ansi().fgBrightRed().a(line).reset().toString());
+            getLog().info(builder().add(ERROR, line).build());
         }
         getLog().info("");
-        getLog().info(ansi().fgBrightYellow().a("The package ").fgBrightCyan().a(packageName)
-                .fgBrightYellow().a(" was not found in the project or its dependencies.").reset().toString());
+        getLog().info(builder().add(CONTEXT, "The package ").add(DETAIL, packageName)
+                .add(CONTEXT, " was not found in the project or its dependencies.").build());
         getLog().info("");
     }
 

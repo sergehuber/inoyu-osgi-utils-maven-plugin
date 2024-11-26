@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.inoyu.maven.plugins.osgi.analyzer.mojos;
+package dev.inoyu.maven.plugins.osgi.utils.mojos;
 
 import aQute.bnd.osgi.Analyzer;
 import aQute.bnd.osgi.Jar;
 import aQute.bnd.osgi.Descriptors;
 import aQute.bnd.osgi.Clazz;
+import dev.inoyu.maven.plugins.osgi.utils.themes.ThemeManager;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -34,13 +35,13 @@ import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
 
-import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.File;
 import java.util.*;
 
-import static org.fusesource.jansi.Ansi.ansi;
+import static dev.inoyu.maven.plugins.osgi.utils.themes.ThemeManager.builder;
+import static dev.inoyu.maven.plugins.osgi.utils.themes.ThemeManager.Role.*;
 
 import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.RepositorySystemSession;
@@ -79,10 +80,11 @@ public class FindPackageUsagesMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        AnsiConsole.systemInstall();
         printCoolHeader();
-        getLog().info(ansi().fgBrightCyan().a("Searching for usages of package: ").fgBrightYellow().a(packageName)
-                .reset().toString());
+        getLog().info(builder()
+                .add(CONTEXT, "Searching for usages of package: ")
+                .add(DETAIL, packageName)
+                .build());
 
         try {
             File classesDir = new File(project.getBuild().getOutputDirectory());
@@ -161,9 +163,14 @@ public class FindPackageUsagesMojo extends AbstractMojo {
                 String className = clazz.getClassName().getFQN();
                 for (Descriptors.PackageRef ref : clazz.getReferred()) {
                     if (ref.getFQN().startsWith(packageName)) {
-                        getLog().info(ansi().fgBrightGreen().a("📦 Usage found in ").fgBrightYellow().a(context)
-                                .fgBrightGreen().a(": ").fgBrightCyan().a(className).fgBrightGreen().a(" uses ")
-                                .fgBrightMagenta().a(ref.getFQN()).reset().toString());
+                        getLog().info(builder()
+                                .add(CONTEXT, "📦 Usage found in ")
+                                .add(DETAIL, context)
+                                .add(CONTEXT, ": ")
+                                .add(CLAUSE, className)
+                                .add(CONTEXT, " uses ")
+                                .add(DIRECTIVE, ref.getFQN())
+                                .build());
                         printDependencyTrail(dependencyTrail);
                         getLog().info(""); // Empty line for readability
                     }
@@ -176,16 +183,17 @@ public class FindPackageUsagesMojo extends AbstractMojo {
 
     private void printDependencyTrail(List<String> dependencyTrail) {
         if (!dependencyTrail.isEmpty()) {
-            getLog().info(ansi().fgBrightMagenta().a("Dependency trail:").reset().toString());
+            getLog().info(builder().add(CONTEXT, "Dependency trail:").build());
             for (int i = 0; i < dependencyTrail.size(); i++) {
                 String dep = dependencyTrail.get(i);
-                Ansi ansi = ansi().fgBrightBlue().a("  ".repeat(i) + "├─ ");
+                ThemeManager.ColorBuilder builder = builder();
+                builder.add(CONTEXT, "  ".repeat(i) + "├─ ");
                 if (dep.contains("(optional)")) {
-                    ansi.fgYellow().a(dep.replace(" (optional)", "")).fgBrightYellow().a(" (optional)");
+                    builder.add(DEPENDENCY, dep.replace(" (optional)", "")).add(ATTRIBUTE, " (optional)");
                 } else {
-                    ansi.a(dep);
+                    builder.add(DEPENDENCY, dep);
                 }
-                getLog().info(ansi.reset().toString());
+                getLog().info(builder.build());
             }
         }
     }
@@ -211,7 +219,7 @@ public class FindPackageUsagesMojo extends AbstractMojo {
         };
 
         for (String line : header) {
-            getLog().info(ansi().fgBrightCyan().a(line).reset().toString());
+            getLog().info(builder().add(HEADER, line).build());
         }
         getLog().info("");
     }

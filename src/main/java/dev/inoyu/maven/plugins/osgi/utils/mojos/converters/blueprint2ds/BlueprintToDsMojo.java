@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.inoyu.maven.plugins.osgi.analyzer.mojos.converters.blueprint2ds;
+package dev.inoyu.maven.plugins.osgi.utils.mojos.converters.blueprint2ds;
 
+import dev.inoyu.maven.plugins.osgi.utils.themes.ThemeManager;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -33,6 +34,9 @@ public class BlueprintToDsMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
+        String theme = System.getProperty("theme", "dark").toLowerCase();
+        ThemeManager.setTheme(theme);
+
         getLog().info("Starting Blueprint to DS conversion...");
 
         try {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.inoyu.maven.plugins.osgi.analyzer.mojos;
+package dev.inoyu.maven.plugins.osgi.utils.mojos;
 
 import org.apache.maven.it.Verifier;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
@@ -29,7 +29,7 @@ public class LocatePackageIT extends AbstractMojoTestCase {
         verifier.setAutoclean(false);
 
         verifier.setSystemProperty("package", "org.osgi.framework");
-        verifier.executeGoal("dev.inoyu:osgi-analyzer-maven-plugin:locate-package");
+        verifier.executeGoal("dev.inoyu:osgi-utils-maven-plugin:locate-package");
 
         verifier.verifyErrorFreeLog();
         verifier.verifyTextInLog("Package found in Dependency: org.osgi:org.osgi.core");

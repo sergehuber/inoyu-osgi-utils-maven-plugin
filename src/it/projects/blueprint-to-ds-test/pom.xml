@@ -37,7 +37,7 @@
             </plugin>
             <plugin>
                 <groupId>dev.inoyu</groupId>
-                <artifactId>osgi-analyzer-maven-plugin</artifactId>
+                <artifactId>osgi-utils-maven-plugin</artifactId>
                 <version>@project.version@</version>
             </plugin>
         </plugins>

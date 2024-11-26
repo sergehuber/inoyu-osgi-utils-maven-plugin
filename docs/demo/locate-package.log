@@ -1,0 +1,39 @@
+[INFO] Scanning for projects...
+[INFO] Cache configuration is not available at configured path /Users/loom/java/technologies/apache-git/unomi/persistence-opensearch/core/.mvn/maven-build-cache-config.xml, cache is enabled with defaults
+[INFO] Using XX hash algorithm for cache
+[INFO] 
+[INFO] ---------< org.apache.unomi:unomi-persistence-opensearch-core >---------
+[INFO] Building Apache Unomi :: Persistence :: OpenSearch :: Core 2.6.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] -------------------------------[ bundle ]-------------------------------
+[INFO] 
+[INFO] --- osgi-analyzer:1.1:locate-package (default-cli) @ unomi-persistence-opensearch-core ---
+[INFO] Package name: android.os
+[INFO]   _____                         _____           _                    _                     _             
+[INFO]  |_   _|                       |  __ \         | |                  | |                   | |            
+[INFO]    | |  _ __   ___  _   _ _   _| |__) |_ _  ___| | ____ _  __ _  ___| |     ___   ___ __ _| |_ ___  _ __ 
+[INFO]    | | | '_ \ / _ \| | | | | | |  ___/ _` |/ __| |/ / _` |/ _` |/ _ \ |    / _ \ / __/ _` | __/ _ \| '__|
+[INFO]   _| |_| | | | (_) | |_| | |_| | |  | (_| | (__|   < (_| | (_| |  __/ |___| (_) | (_| (_| | || (_) | |   
+[INFO]  |_____|_| |_|\___/ \__, |\__,_|_|   \__,_|\___|_|\_\__,_|\__, |\___|______\___/ \___\__,_|\__\___/|_|   
+[INFO]                      __/ |                                 __/ |                                         
+[INFO]                     |___/                                 |___/                                          
+[INFO] 
+[INFO] Searching for package location: android.os
+[INFO] 
+[INFO]   _____           _                    _   _       _     ______                     _ 
+[INFO]  |  __ \         | |                  | \ | |     | |   |  ____|                   | |
+[INFO]  | |__) |_ _  ___| | ____ _  __ _  ___|  \| | ___ | |_  | |__ ___  _   _ _ __   __| |
+[INFO]  |  ___/ _` |/ __| |/ / _` |/ _` |/ _ \ . ` |/ _ \| __| |  __/ _ \| | | | '_ \ / _` |
+[INFO]  | |  | (_| | (__|   < (_| | (_| |  __/ |\  | (_) | |_  | | | (_) | |_| | | | | (_| |
+[INFO]  |_|   \__,_|\___|_|\_\__,_|\__, |\___|_| \_|\___/ \__| |_|  \___/ \__,_|_| |_|\__,_|
+[INFO]                              __/ |                                                    
+[INFO]                             |___/                                                     
+[INFO] 
+[INFO] The package android.os was not found in the project or its dependencies.
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.743 s
+[INFO] Finished at: 2024-11-25T20:26:06+01:00
+[INFO] ------------------------------------------------------------------------

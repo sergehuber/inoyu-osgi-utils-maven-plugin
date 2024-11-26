@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.inoyu.maven.plugins.osgi.analyzer.mojos.converters.blueprint2ds;
+package dev.inoyu.maven.plugins.osgi.utils.mojos.converters.blueprint2ds;
 
 import org.apache.maven.it.Verifier;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
@@ -32,7 +32,7 @@ public class BlueprintToDsIT extends AbstractMojoTestCase {
         Verifier verifier = new Verifier(testProjectDir.getAbsolutePath());
         verifier.setAutoclean(false);
 
-        verifier.executeGoal("dev.inoyu:osgi-analyzer-maven-plugin:convert-blueprint-to-ds");
+        verifier.executeGoal("dev.inoyu:osgi-utils-maven-plugin:convert-blueprint-to-ds");
 
         verifier.verifyErrorFreeLog();
 

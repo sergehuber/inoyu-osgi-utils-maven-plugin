@@ -1,4 +1,4 @@
-package dev.inoyu.maven.plugins.osgi.analyzer.mojos.converters.blueprint2ds;
+package dev.inoyu.maven.plugins.osgi.utils.mojos.converters.blueprint2ds;
 /*
  * Copyright 2024 Serge Huber
  *

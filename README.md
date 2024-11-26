@@ -13,9 +13,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-# OSGi Bundle Analyzer Maven Plugin
+# Inoyu OSGi Utilities Maven Plugin
 
-The OSGi Bundle Analyzer Maven Plugin is a collection of utilities designed to help developers work with OSGi bundles in Maven projects. This plugin provides several goals to analyze and manage OSGi-related aspects of your project.
+The Inoyu OSGi Utilities Maven Plugin is a collection of utilities designed to help developers work with OSGi bundles in Maven projects. This plugin provides several goals to analyze and manage OSGi-related aspects of your project.
 
 ## Features
 
@@ -37,7 +37,7 @@ This plugin can be used directly from the command line. Some goals require a Mav
 This goal must be run within a Maven project context:
 
 ```shell
-mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:locate-package -Dpackage=com.example.package1
+mvn dev.inoyu:osgi-utils-maven-plugin:1.2:locate-package -Dpackage=com.example.package1
 ```
 
 
@@ -59,7 +59,7 @@ com/example/package1/Class2.class
 This goal must also be run within a Maven project context:
 
 ```shell
-mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:find-package-usages -Dpackage=com.example.package
+mvn dev.inoyu:osgi-utils-maven-plugin:1.2:find-package-usages -Dpackage=com.example.package
 ```
 
 
@@ -82,7 +82,7 @@ This goal can be used both within a Maven project context and independently:
 1. Within a Maven project:
 
    ```shell
-   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:view-manifest
+   mvn dev.inoyu:osgi-utils-maven-plugin:1.2:view-manifest
    ```
 
    This will display the manifest of the project's main artifact.
@@ -90,7 +90,7 @@ This goal can be used both within a Maven project context and independently:
 2. For arbitrary JAR files (can be used anywhere):
 
    ```shell
-   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:view-manifest -Djars=path/to/your/jar1.jar,path/to/your/jar2.jar
+   mvn dev.inoyu:osgi-utils-maven-plugin:1.2:view-manifest -Djars=path/to/your/jar1.jar,path/to/your/jar2.jar
    ```
 
 This goal displays the contents of the OSGi bundle manifest, including all headers and their values.
@@ -121,25 +121,25 @@ The plugin supports the following parameters:
 1. Locate a package in a Maven project:
 
    ```shell
-   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:locate-package -Dpackage=org.osgi.framework
+   mvn dev.inoyu:osgi-utils-maven-plugin:1.2:locate-package -Dpackage=org.osgi.framework
    ```
 
 2. Analyze package usage in a Maven project:
 
    ```shell
-   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:find-package-usages -Dpackage=com.example.api
+   mvn dev.inoyu:osgi-utils-maven-plugin:1.2:find-package-usages -Dpackage=com.example.api
    ```
 
 3. View manifest of the current Maven project:
 
    ```shell
-   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:view-manifest
+   mvn dev.inoyu:osgi-utils-maven-plugin:1.2:view-manifest
    ```
 
 4. View manifests of multiple JARs (can be used anywhere):
 
    ```shell
-   mvn dev.inoyu:osgi-analyzer-maven-plugin:1.1:view-manifest -Djars=/path/to/bundle1.jar,/path/to/bundle2.jar
+   mvn dev.inoyu:osgi-utils-maven-plugin:1.2:view-manifest -Djars=/path/to/bundle1.jar,/path/to/bundle2.jar
    ```
 
 ## Notes
@@ -149,7 +149,7 @@ The plugin supports the following parameters:
 
 ## Contributing
 
-Contributions to the OSGi Tools Maven Plugin are welcome! Please submit pull requests or open issues on our GitHub repository.
+Contributions to the Inoyu OSGi Utilities Maven Plugin are welcome! Please submit pull requests or open issues on our GitHub repository.
 
 ## License
 

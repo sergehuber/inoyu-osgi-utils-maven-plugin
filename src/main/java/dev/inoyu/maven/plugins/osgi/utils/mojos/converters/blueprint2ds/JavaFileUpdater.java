@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.inoyu.maven.plugins.osgi.analyzer.mojos.converters.blueprint2ds;
+package dev.inoyu.maven.plugins.osgi.utils.mojos.converters.blueprint2ds;
 
 import java.io.*;
 import java.nio.file.*;

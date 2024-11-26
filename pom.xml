@@ -19,13 +19,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>dev.inoyu</groupId>
-  <artifactId>osgi-analyzer-maven-plugin</artifactId>
+  <artifactId>osgi-utils-maven-plugin</artifactId>
   <version>1.2-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
 
-  <name>OSGi Bundle Analyzer Maven Plugin</name>
-  <description>The OSGi Bundle Analyzer Maven Plugin is a collection of utilities designed to help developers work with OSGi bundles in Maven projects</description>
-  <url>https://github.com/sergehuber/osgi-analyzer-maven-plugin</url>
+  <name>Inoyu OSGi Utilities Maven Plugin</name>
+  <description>The Inoyu OSGi Utilities Maven Plugin is a collection of utilities designed to help developers work with OSGi bundles in Maven projects</description>
+  <url>https://github.com/sergehuber/inoyu-osgi-utils-maven-plugin</url>
 
   <licenses>
     <license>
@@ -44,9 +44,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/sergehuber/osgi-analyzer-maven-plugin.git</connection>
-    <developerConnection>scm:git:https://github.com/sergehuber/osgi-analyzer-maven-plugin.git</developerConnection>
-    <url>https://github.com/sergehuber/osgi-analyzer-maven-plugin/tree/main</url>
+    <connection>scm:git:git://github.com/sergehuber/inoyu-osgi-utils-maven-plugin.git</connection>
+    <developerConnection>scm:git:https://github.com/sergehuber/inoyu-osgi-utils-maven-plugin.git</developerConnection>
+    <url>https://github.com/sergehuber/inoyu-osgi-utils-maven-plugin/tree/main</url>
     <tag>HEAD</tag>
   </scm>
 

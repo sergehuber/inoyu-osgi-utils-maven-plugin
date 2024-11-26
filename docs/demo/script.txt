@@ -1,0 +1,42 @@
+# Has this ever happened to you ?
+# You are working on a complex OSGi bundle, with embedded JARs and on deployment you get the
+# following error:
+
+cat deployment-error.txt
+
+# Not only is that unreadable, but a dependency on "android.os" for a bundle embedding the OpenSearch client ? What kind of mess is that ?
+
+# Enter the OSGi Bundle Analyzer Maven Plugin ! It can help in situations like this. First, in order to understand the problem let's try to look at the MANIFEST.MF inside the JAR. It looks like this:
+
+cat MANIFEST.MF
+
+# We need to understand the Import-Package header but it's not very easy to read. This is where the tools makes it a lot easier. Simply use :
+
+mvn dev.inoyu:osgi-utils-maven-plugin:1.2:view-manifest -Djars=unomi-persistence-opensearch-core-2.6.0-SNAPSHOT.jar
+
+# Now let's understand where the package is coming from with :
+
+mvn dev.inoyu:osgi-utils-maven-plugin:1.2:find-package-usages -Dpackage=android.os
+
+cat find-package-usages.log
+
+# We now know that guava is pulling this dependency, so it's probably safe to ignore, let's change the import-package configuration:
+
+                    <instructions>
+                        <Import-Package>
+                            android.os;resolution:=optional,
+
+# We could have also used the following command to check that none of the dependencies were providing this package internally:
+
+mvn dev.inoyu:osgi-utils-maven-plugin:1.2:locate-package -Dpackage=android.os
+
+cat locate-package.log
+
+# If we want to check if a package is embedded inside the bundle with embeddings, we can run the following command :
+
+mvn dev.inoyu:osgi-utils-maven-plugin:1.2:locate-package -Dpackage=org.opensearch
+
+cat locate-package-opensearch.log
+
+
+

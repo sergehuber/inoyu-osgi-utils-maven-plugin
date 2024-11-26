@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.inoyu.maven.plugins.osgi.analyzer.mojos;
+package dev.inoyu.maven.plugins.osgi.utils.mojos;
 
 import org.apache.felix.utils.manifest.Attribute;
 import org.apache.felix.utils.manifest.Clause;
@@ -35,7 +35,8 @@ import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 import java.util.regex.Pattern;
 
-import static org.fusesource.jansi.Ansi.ansi;
+import static dev.inoyu.maven.plugins.osgi.utils.themes.ThemeManager.Role.*;
+import static dev.inoyu.maven.plugins.osgi.utils.themes.ThemeManager.builder;
 
 /**
  * A Maven goal to view and analyze OSGi bundle manifests.
@@ -59,7 +60,6 @@ public class ViewManifestMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        AnsiConsole.systemInstall();
         printCoolHeader();
 
         List<String> jarPaths = new ArrayList<>();
@@ -72,7 +72,7 @@ public class ViewManifestMojo extends AbstractMojo {
                 extension = "jar";
             }
             if ("pom".equals(extension)) {
-                getLog().info(ansi().fgBrightRed().a("POM files are not supported for this goal.").reset().toString());
+                getLog().info(builder().add(ERROR, "POM files are not supported for this goal.").build());
                 return;
             }
             jarPaths.add(project.getBuild().getDirectory() + "/" + project.getBuild().getFinalName() + "." + extension);
@@ -86,16 +86,15 @@ public class ViewManifestMojo extends AbstractMojo {
             try {
                 Manifest manifest = readManifest(jarPath);
 
-                getLog().info(ansi().fgBrightYellow().a("Analyzing manifest of: ").fgBrightCyan().a(jarPath).reset()
-                        .toString());
-                getLog().info(ansi().fgBrightMagenta().a("=".repeat(80)).reset().toString());
+                getLog().info(builder().add(CONTEXT, "Analyzing manifest of: ").add(DETAIL, jarPath).build());
+                getLog().info(builder().add(DIRECTIVE, "=".repeat(80)).build());
 
                 processAttributes(manifest.getMainAttributes());
                 for (Map.Entry<String, Attributes> namedAttributes : manifest.getEntries().entrySet()) {
                     processAttributes(namedAttributes.getValue());
                 }
 
-                getLog().info(ansi().fgBrightMagenta().a("=".repeat(80)).reset().toString());
+                getLog().info(builder().add(DIRECTIVE, "=".repeat(80)).build());
                 getLog().info("");
             } catch (IOException e) {
                 throw new MojoExecutionException("Error reading MANIFEST.MF from " + jarPath, e);
@@ -122,10 +121,9 @@ public class ViewManifestMojo extends AbstractMojo {
                     "Bundle-RequiredExecutionEnvironment", "Component-Properties").contains(attributeName)) {
                 getLog().info(formatHeader(attributeName, attributeValue));
             } else {
-                getLog().info(ansi().fgBrightGreen().a(attributeName + ": ").fgBrightDefault().a(attributeValue).reset()
-                        .toString());
+                getLog().info(builder().add(CONTEXT, attributeName + ": ").add(DETAIL, attributeValue).build());
             }
-            getLog().info(ansi().fgBrightBlue().a("─".repeat(78)).reset().toString());
+            getLog().info(builder().add(HEADER, "─".repeat(78)).build());
         }
     }
 
@@ -151,21 +149,21 @@ public class ViewManifestMojo extends AbstractMojo {
     }
 
     private String formatHeader(String key, String value) {
-        StringBuilder formatted = new StringBuilder(ansi().fgBrightYellow().a(key + ":").reset().toString() + "\n");
+        StringBuilder formatted = new StringBuilder(builder().add(DEPENDENCY, key + ":").build() + "\n");
 
         // Parse the Import-Package header
         Clause[] clauses = Parser.parseHeader(value);
 
         for (int i = 0; i < clauses.length; i++) {
             Clause clause = clauses[i];
-            formatted.append(ansi().fgBrightGreen().a("  " + clause.getName()).reset().toString());
+            formatted.append(builder().add(CLAUSE, "  " + clause.getName()).build());
             for (Directive directive : clause.getDirectives()) {
                 String quotedValue = applyQuotingIfNeeded(directive.getValue());
-                formatted.append(ansi().fgBrightCyan().a(";" + directive.getName() + ":=" + quotedValue).reset().toString());
+                formatted.append(builder().add(DIRECTIVE, ";" + directive.getName() + ":=" + quotedValue).build());
             }
             for (Attribute attribute : clause.getAttributes()) {
                 String quotedValue = applyQuotingIfNeeded(attribute.getValue());
-                formatted.append(ansi().fgBrightBlue().a(";" + attribute.getName() + "=" + quotedValue).reset().toString());
+                formatted.append(builder().add(ATTRIBUTE, ";" + attribute.getName() + "=" + quotedValue).build());
             }
             // Add a comma if this is not the last clause
             if (i < clauses.length - 1) {
@@ -202,7 +200,7 @@ public class ViewManifestMojo extends AbstractMojo {
         };
 
         for (String line : header) {
-            getLog().info(ansi().fgBrightCyan().a(line).reset().toString());
+            getLog().info(builder().add(HEADER,line).build());
         }
         getLog().info("");
     }
