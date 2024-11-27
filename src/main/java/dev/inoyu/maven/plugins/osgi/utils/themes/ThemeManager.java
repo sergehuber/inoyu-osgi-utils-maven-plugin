@@ -21,7 +21,7 @@ public class ThemeManager {
 
     private static final Map<Role, Ansi.Color[]> THEMES = new EnumMap<>(Role.class);
 
-    private static boolean isDarkMode = true; // Default to dark mode
+    private static boolean isDarkMode = false; // Default to dark mode
 
     static {
         // Define dark mode and light mode colors for each role
@@ -34,7 +34,11 @@ public class ThemeManager {
         THEMES.put(Role.DEPENDENCY, new Ansi.Color[]{Ansi.Color.MAGENTA, Ansi.Color.CYAN});
         THEMES.put(Role.ERROR, new Ansi.Color[]{Ansi.Color.RED, Ansi.Color.MAGENTA});
 
-        String theme = System.getProperty("theme", "dark").toLowerCase();
+        String theme = ThemeDetector.detectOSTheme();
+        if (System.getProperty("theme") != null) {
+            theme = System.getProperty("theme").toLowerCase();
+        }
+        System.out.println("Detected theme=" + theme);
         ThemeManager.setTheme(theme);
         AnsiConsole.systemInstall();
     }
